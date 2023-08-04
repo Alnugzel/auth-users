@@ -7,7 +7,10 @@ const getAll = catchError(async (req, res) => {
 });
 
 const create = catchError(async (req, res) => {
+  const { email, firstName, frontBaseUrl } = req.body;
   const result = await User.create(req.body);
+  const code = require("crypto").randomBytes(64).toString("hex");
+  console.log(code);
   return res.status(201).json(result);
 });
 

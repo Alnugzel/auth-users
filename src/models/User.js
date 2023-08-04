@@ -42,7 +42,7 @@ User.prototype.toJSON = function () {
 };
 
 User.beforeCreate(async (user) => {
-  hashPassword = await bcrypt.hash(user.password);
+  const hashPassword = await bcrypt.hash(user.password, 10);
   user.password = hashPassword;
 });
 
