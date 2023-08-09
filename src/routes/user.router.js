@@ -7,18 +7,27 @@ const {
   verifyUser,
   login,
   logged,
+  resetPassword,
+  updatePasword,
 } = require("../controllers/user.controllers");
+
 const express = require("express");
 const { verifyJWT } = require("../utils/verify");
 
 const routerUser = express.Router();
 
-routerUser.route("/").get(getAll).post(create);
-routerUser.route("/me").get(verifyJWT, logged);
+routerUser.route("/").get(verifyJWT, getAll).post(create);
 routerUser.route("/login").post(login);
+routerUser.route("/me").get(verifyJWT, logged);
+routerUser.route("/reset_password").post(resetPassword);
 
 //-----------------------
 routerUser.route("/verify/:code").get(verifyUser);
-routerUser.route("/:id").get(getOne).delete(remove).put(update);
+routerUser.route("/reset_password/:code").post(updatePasword);
+routerUser
+  .route("/:id")
+  .get(verifyJWT, getOne)
+  .delete(verifyJWT, remove)
+  .put(verifyJWT, update);
 
 module.exports = routerUser;
