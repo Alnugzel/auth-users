@@ -33,6 +33,10 @@ const User = sequelize.define("user", {
     allowNull: false,
     defaultValue: false,
   },
+  frontBaseUrl: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 });
 
 User.prototype.toJSON = function () {
